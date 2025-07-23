@@ -92,6 +92,7 @@ def format_percentage(value):
 
 # Print demographic data summary
 print("Demographic Data Summary:")
+print("Data Source: ACS 2023 5-year estimates (2019-2023)")
 print(f"Total ZIP codes with demographic data: {len(df_demo)}")
 print("\nFirst few rows of demographic data:")
 # Format the demographic data for display
@@ -131,6 +132,7 @@ df_with_nan = df_boston[df_boston["avg_rent_2024"].isna()]
 
 # View results with data AKA useful data
 print("Boston Rental Data - With Average Rent 2024:")
+print("Data Source: Zillow Rental Data (January - December 2024)")
 df_with_data_display = df_with_data[["City", "StateName", "RegionName", "avg_rent_2024"]].copy().reset_index(drop=True)
 # Format rent with dollar signs and commas
 df_with_data_display["avg_rent_2024"] = df_with_data_display["avg_rent_2024"].map(format_rent)
@@ -151,6 +153,7 @@ boston_zips_str = [str(zip_code) for zip_code in zip_codes_boston]  # Convert to
 demo_boston = df_demo[df_demo["ZIP"].isin(boston_zips_str)]
 
 print("Boston ZIP Codes with Demographic Data:")
+print("Demographic Data: ACS 2023 5-year estimates (2019-2023)")
 print(f"Total Boston ZIP codes with demographic data: {len(demo_boston)}")
 if len(demo_boston) > 0:
     # Format the Boston demographic data for display
@@ -159,6 +162,24 @@ if len(demo_boston) > 0:
     demo_boston_display["Median_Age"] = demo_boston_display["Median_Age"].map(format_age)
     demo_boston_display["Percent_Renters"] = demo_boston_display["Percent_Renters"].map(format_percentage)
     print(tabulate(demo_boston_display, headers='keys', tablefmt='psql'))
+    
+    print("\n" + "="*80)
+    print("DATA SUMMARY & TIME FRAMES")
+    print("="*80)
+    print("📊 RENTAL DATA:")
+    print("   • Source: Zillow Rental Listings")
+    print("   • Time Period: January 2024 - December 2024")
+    print("   • Coverage: 25 Boston ZIP codes with data, 2 missing")
+    print()
+    print("👥 DEMOGRAPHIC DATA:")
+    print("   • Source: U.S. Census Bureau ACS 2023 5-year estimates")
+    print("   • Time Period: 2019-2023 (5-year average)")
+    print("   • Coverage: 28 Boston ZIP codes")
+    print()
+    print("⚠️  NOTE: Demographic data represents 5-year averages (2019-2023)")
+    print("   while rental data is from 2024 only. This timing difference")
+    print("   should be considered when interpreting correlations.")
+    print("="*80)
 else:
     print("No demographic data found for Boston ZIP codes.")
     print("Available ZIP codes in demographic data:")
